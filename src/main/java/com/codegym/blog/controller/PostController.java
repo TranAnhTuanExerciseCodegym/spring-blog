@@ -72,4 +72,61 @@ public class PostController {
         modelAndView.addObject("message", "New post has been created successfully");
         return modelAndView;
     }
+
+    @GetMapping("/edit/{id}")
+    public ModelAndView showEditPostForm(
+            @PathVariable("id") Long id
+    ) {
+        Post post = postService.findById(id);
+        PostForm postForm = new PostForm();
+
+        postForm.setId(post.getId());
+        postForm.setTitle(post.getTitle());
+        postForm.setCategory(post.getCategory());
+        postForm.setContent(post.getContent());
+        postForm.setDescription(post.getDescription());
+        postForm.setImageUrl(post.getImageUrl());
+
+        ModelAndView modelAndView;
+        if (post != null) {
+            modelAndView = new ModelAndView("/blog/post/edit");
+            modelAndView.addObject("postForm", postForm);
+        } else {
+            modelAndView = new ModelAndView("redirect:/404");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/edit/{id}")
+    public ModelAndView updatePost(
+            @PathVariable("id") Long id,
+            @ModelAttribute("postForm") PostForm postForm
+    ) {
+        ModelAndView modelAndView = new ModelAndView("/blog/post/edit");
+        Post post = postService.findById(id);
+
+        if (!postForm.getImage().isEmpty()) {
+            StorageUnits.removeFeature(post.getImageUrl());
+            String randomCode = UUID.randomUUID().toString();
+            String originFileName = postForm.getImage().getOriginalFilename();
+            String randomName = randomCode + StorageUnits.getFileExtension(originFileName);
+            try {
+                postForm.getImage().transferTo(new File(StorageUnits.FEATURE_LOCATION + "/" + randomName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            post.setImageUrl(randomName);
+            postForm.setImageUrl(randomName);
+        }
+
+        post.setTitle(postForm.getTitle());
+        post.setDescription(postForm.getDescription());
+        post.setCategory(postForm.getCategory());
+        post.setContent(postForm.getContent());
+
+        postService.save(post);
+        modelAndView.addObject("postForm", postForm);
+        modelAndView.addObject("message", "Update post successfully");
+        return modelAndView;
+    }
 }
