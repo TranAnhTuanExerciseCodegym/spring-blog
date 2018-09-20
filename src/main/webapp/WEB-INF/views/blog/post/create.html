@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+</head>
+<body>
+
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/admin/posts/">List Post</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/posts/create">Create post <span class="sr-only"></span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <form th:action="@{/admin/posts/create}"
+          method="post" th:object="${postForm}"
+          enctype="multipart/form-data">
+        <div class="menu">
+            <p>
+                <th:block th:if="${message}">
+                    <span th:text="${message}"></span>
+                </th:block>
+            </p>
+            <table class="table">
+                <tr>
+                    <td>title</td>
+                    <td><input type="text" th:field="*{title}"></td>
+                </tr>
+                <tr>
+                    <td>description</td>
+                    <td><input type="text" th:field="*{description}"></td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td><input type="text" th:field="*{content}" class=""></td>
+                </tr>
+                <tr>
+                    <td>image url</td>
+                    <td><input type="file" th:field="*{image}"></td>
+                </tr>
+                <tr>
+                    <td>Category</td>
+                    <td>
+                        <select th:field="*{category}">
+                            <option th:each="categories : ${category}" th:value="${categories.id}"
+                                    th:text="${categories.name}"></option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" class="btn-primary" value="Create category"></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+</body>
+</html>

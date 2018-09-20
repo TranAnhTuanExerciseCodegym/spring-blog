@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <style type="text/css">
+        .menu {
+            padding-top: 10px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/admin/posts/">List Post</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/posts/create">Create post <span class="sr-only"></span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="menu">
+        <p>
+            <th:block th:if="${message}">
+                <span th:text="${message}"></span>
+            </th:block>
+        </p>
+        <table class="table">
+            <tr>
+                <td>#</td>
+                <td>title</td>
+                <td>description</td>
+                <td>content</td>
+                <td>image url</td>
+                <!--<td>create date</td>-->
+                <td>name</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+            <tr th:each="post : ${posts}">
+                <td th:text="${post.id}"></td>
+                <td th:text="${post.title}"></td>
+                <td th:text="${post.description}"></td>
+                <td th:text="${post.content}"></td>
+                <td>
+                    <img th:src="@{/upload/__${post.imageUrl}__}" height="100" width="100">
+                </td>
+                <!--<td th:text="${post.createdDate}"></td>-->
+                <td><span th:if="${post.category}" th:text="${post.category.name}"></span></td>
+                <td><a th:href="@{/admin/posts/edit/__${post.id}__}">Edit</a></td>
+                <td><a th:href="@{/admin/posts/delete/__${post.id}__}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

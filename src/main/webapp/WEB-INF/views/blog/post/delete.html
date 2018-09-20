@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Post</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+</head>
+<body>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="/admin/posts/">List Post</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/admin/posts/create">Create post <span class="sr-only"></span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="menu">
+        <form th:action="@{/admin/posts/delete/__${post.id}__}" th:object="${post}"
+              method="post" class="form-group">
+            <table class="table">
+                <tr>
+                    <td>Title</td>
+                    <td th:text="${post.title}"></td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td th:text="${post.description}"></td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td th:text="${post.content}"></td>
+                </tr>
+                <tr>
+                    <td>Image</td>
+                    <td>
+                        <img th:src="@{/upload/__${post.imageUrl}__}" height="100" width="100">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Name</td>
+                    <td th:text="${post.category.name}"></td>
+                </tr>
+                <tr>
+                    <td><input type="submit" class="btn-primary" value="Delete"></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+</body>
+</html>
