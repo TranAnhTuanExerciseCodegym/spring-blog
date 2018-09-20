@@ -186,6 +186,8 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         registry
                 .addResourceHandler("/assets/**").addResourceLocations("/assets/");
         registry
+                .addResourceHandler("/stisla/**").addResourceLocations("/stisla/");
+        registry
                 .addResourceHandler("/upload/**")
                 .addResourceLocations("file:" + StorageUnits.FEATURE_LOCATION + "/");
     }

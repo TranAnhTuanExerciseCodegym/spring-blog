@@ -29,7 +29,7 @@
     </nav>
     <form th:action="@{/admin/posts/create}"
           method="post" th:object="${postForm}"
-          enctype="multipart/form-data">
+          enctype="multipart/form-data" class="form-group">
         <div class="menu">
             <p>
                 <th:block th:if="${message}">
@@ -39,15 +39,15 @@
             <table class="table">
                 <tr>
                     <td>title</td>
-                    <td><input type="text" th:field="*{title}"></td>
+                    <td><input type="text" th:field="*{title}" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>description</td>
-                    <td><input type="text" th:field="*{description}"></td>
+                    <td><input type="text" th:field="*{description}" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>content</td>
-                    <td><input type="text" th:field="*{content}" class=""></td>
+                    <td><input type="text" th:field="*{content}" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>image url</td>

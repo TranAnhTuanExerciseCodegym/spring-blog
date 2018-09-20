@@ -16,7 +16,7 @@ public class WebController {
     @GetMapping("/")
     public ModelAndView home() {
         Iterable<Post> posts = postService.findByAll();
-        ModelAndView modelAndView = new ModelAndView("/blog/home");
+        ModelAndView modelAndView = new ModelAndView("blog/home");
         modelAndView.addObject("posts", posts);
         return modelAndView;
     }
