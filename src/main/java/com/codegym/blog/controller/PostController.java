@@ -38,4 +38,38 @@ public class PostController {
         modelAndView.addObject("posts", posts);
         return modelAndView;
     }
+
+    @GetMapping("/create")
+    public ModelAndView showCreatePostForm() {
+        ModelAndView modelAndView = new ModelAndView("/blog/post/create");
+        modelAndView.addObject("postForm", new PostForm());
+        return modelAndView;
+    }
+
+    @PostMapping("/create")
+    public ModelAndView savePost(
+            @ModelAttribute("postForm") PostForm postForm
+    ) {
+        ModelAndView modelAndView = new ModelAndView("/blog/post/create");
+        try {
+            String randomCode = UUID.randomUUID().toString();
+            String originFileName = postForm.getImage().getOriginalFilename();
+            String randomName = randomCode + StorageUnits.getFileExtension(originFileName);
+            postForm.getImage().transferTo(new File(StorageUnits.FEATURE_LOCATION + "/" + randomName));
+
+            Post post = new Post();
+            post.setTitle(postForm.getTitle());
+            post.setCategory(postForm.getCategory());
+            post.setContent(postForm.getContent());
+            post.setDescription(postForm.getDescription());
+            post.setImageUrl(randomName);
+
+            postService.save(post);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        modelAndView.addObject("postForm", new PostForm());
+        modelAndView.addObject("message", "New post has been created successfully");
+        return modelAndView;
+    }
 }
