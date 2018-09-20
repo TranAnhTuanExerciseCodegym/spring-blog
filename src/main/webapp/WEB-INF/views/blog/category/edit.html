@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<a href="/category">List Category</a>
+<h1>Edit Category</h1>
+<form th:action="@{/edit-category}" method="post" th:object="${category}">
+    <input type="hidden" th:field="*{id}">
+    <table>
+        <tr>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}"></td>
+        </tr>
+        <tr>
+            <td><input type="button" value="Edit category" id="submit"></td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

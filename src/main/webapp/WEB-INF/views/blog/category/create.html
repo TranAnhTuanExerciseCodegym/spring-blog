@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Create</title>
+</head>
+<body>
+<h1>Create</h1>
+<a href="/category">List Category</a>
+<form th:action="@{/category-create}" method="post" th:object="${category}">
+    <div class="row">
+        <div class="col-md-3">
+            <table class="table">
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" th:field="*{name}"></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Create category"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</form>
+</body>
+</html>

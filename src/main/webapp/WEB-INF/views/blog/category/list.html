@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>List Category</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container">
+        <nav class="navbar navbar-dark bg-dark">
+            <h1>List Category</h1>
+        </nav>
+        <a href="/category-create">Create category</a>
+        <table class="table">
+            <thead>
+            <tr>
+                <td>#</td>
+                <td>Name</td>
+                <td>Edit</td>
+                <td>Delete</td>
+            </tr>
+            </thead>
+
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+                <td><a th:href="@{/edit-category/__${category.id}__}">Edit</a></td>
+                <td><a th:href="@{/delete-category/__${category.id}__}">Delete</a></td>
+            </tr>
+        </table>
+    </div>
+</section>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</body>
+</html>
