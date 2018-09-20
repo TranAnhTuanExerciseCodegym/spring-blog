@@ -129,4 +129,34 @@ public class PostController {
         modelAndView.addObject("message", "Update post successfully");
         return modelAndView;
     }
+
+    @GetMapping("/delete/{id}")
+    public ModelAndView showDeletePostForm(
+            @PathVariable("id") Long id
+    ) {
+        Post post = postService.findById(id);
+        ModelAndView modelAndView;
+        if (post != null) {
+            modelAndView = new ModelAndView("/blog/post/delete");
+            modelAndView.addObject("post", post);
+        } else {
+            modelAndView = new ModelAndView("/blog/post/error-404");
+        }
+        return modelAndView;
+    }
+
+    @PostMapping("/delete/{id}")
+    public String removePost(
+            @PathVariable("id") Long id,
+            RedirectAttributes redirectAttributes
+    ) {
+        Post post = postService.findById(id);
+        if (post != null) {
+            postService.remove(id);
+            redirectAttributes.addFlashAttribute("message", "Remove post successfully");
+            return "redirect:/admin";
+        } else {
+            return "redirect:/404";
+        }
+    }
 }
