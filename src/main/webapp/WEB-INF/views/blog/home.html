@@ -67,8 +67,8 @@
                         <article class="card">
                             <img class="card-img-top" th:src="@{/upload/__${p.imageUrl}__}" alt="Article Image">
                             <div class="card-body">
-                                <div class="card-subtitle mb-2 text-muted">by <a href="#">John Doe</a> on August 10,
-                                    2017
+                                <div class="card-subtitle mb-2 text-muted">by <a href="#">John Doe</a> on
+                                    <span th:text="${p.createdDate}"></span>
                                 </div>
                                 <h4 class="card-title"><a href="#" data-toggle="read" data-id="1"
                                                           th:text="${p.title}"></a></h4>

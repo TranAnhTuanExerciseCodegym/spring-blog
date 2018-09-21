@@ -45,10 +45,9 @@
                 <td>#</td>
                 <td>title</td>
                 <td>description</td>
-                <td>content</td>
                 <td>image url</td>
-                <!--<td>create date</td>-->
-                <td>name</td>
+                <td>create date</td>
+                <td>category</td>
                 <td>Edit</td>
                 <td>Delete</td>
             </tr>
@@ -56,11 +55,10 @@
                 <td th:text="${post.id}"></td>
                 <td th:text="${post.title}"></td>
                 <td th:text="${post.description}"></td>
-                <td th:text="${post.content}"></td>
                 <td>
                     <img th:src="@{/upload/__${post.imageUrl}__}" height="100" width="100">
                 </td>
-                <!--<td th:text="${post.createdDate}"></td>-->
+                <td th:text="${#dates.format(post.createdDate, 'dd-MM-yyyy')}"></td>
                 <td><span th:if="${post.category}" th:text="${post.category.name}"></span></td>
                 <td><a th:href="@{/admin/posts/edit/__${post.id}__}">Edit</a></td>
                 <td><a th:href="@{/admin/posts/delete/__${post.id}__}">Delete</a></td>

@@ -28,33 +28,40 @@
     </nav>
     <div class="menu">
         <form th:action="@{/admin/posts/delete/__${post.id}__}" th:object="${post}"
-              method="post" class="form-group">
-            <table class="table">
-                <tr>
-                    <td>Title</td>
-                    <td th:text="${post.title}"></td>
-                </tr>
-                <tr>
-                    <td>Description</td>
-                    <td th:text="${post.description}"></td>
-                </tr>
-                <tr>
-                    <td>Content</td>
-                    <td th:text="${post.content}"></td>
-                </tr>
-                <tr>
-                    <td>Image</td>
-                    <td>
-                        <img th:src="@{/upload/__${post.imageUrl}__}" height="100" width="100">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Name</td>
-                    <td th:text="${post.category.name}"></td>
-                </tr>
-                <tr>
-                    <td><input type="submit" class="btn-primary" value="Delete"></td>
-                </tr>
+              method="post">
+            <div class="form-group row">
+                <label class="col-md-2">Title</label>
+                <div class="col-md-10">
+                    <strong th:text="${post.title}"></strong>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Description</label>
+                <div class="col-md-10">
+                    <strong th:text="${post.description}"></strong>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Content</label>
+                <div class="col-md-10">
+                    <strong th:text="${post.content}"></strong>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Image</label>
+                <div class="col-md-10">
+                    <img th:src="@{/upload/__${post.imageUrl}__}" height="100" width="100">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-md-2">Name</label>
+                <div class="col-md-10">
+                    <strong th:text="${post.category.name}"></strong>
+                </div>
+            </div>
+            <tr>
+                <td><input type="submit" class="btn-primary" value="Delete"></td>
+            </tr>
             </table>
         </form>
     </div>

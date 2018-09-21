@@ -46,10 +46,6 @@
                     <td><input type="text" th:field="*{description}" class="form-control"></td>
                 </tr>
                 <tr>
-                    <td>content</td>
-                    <td><input type="text" th:field="*{content}" class="form-control"></td>
-                </tr>
-                <tr>
                     <td>image url</td>
                     <td><input type="file" th:field="*{image}"></td>
                 </tr>
@@ -61,6 +57,10 @@
                                     th:text="${categories.name}"></option>
                         </select>
                     </td>
+                </tr>
+                <tr>
+                    <td>content</td>
+                    <td><input type="text" th:field="*{content}" class="form-control"></td>
                 </tr>
                 <tr>
                     <td colspan="2"><input type="submit" class="btn-primary" value="Create category"></td>
