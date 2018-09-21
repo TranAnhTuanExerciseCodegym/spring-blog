@@ -13,7 +13,7 @@ public class Post {
     private String description;
     private String content;
     private String imageUrl;
-//    private Date createdDate;
+    private Date createdDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -26,12 +26,12 @@ public class Post {
     public Post() {
     }
 
-    public Post(String title, String description, String content, String imageUrl, Category category, User user) {
+    public Post(String title, String description, String content, String imageUrl, Date createdDate, Category category, User user) {
         this.title = title;
         this.description = description;
         this.content = content;
         this.imageUrl = imageUrl;
-//        this.createdDate = createdDate;
+        this.createdDate = createdDate;
         this.category = category;
         this.user = user;
     }
@@ -76,13 +76,13 @@ public class Post {
         this.imageUrl = imageUrl;
     }
 
-//    public Date getCreatedDate() {
-//        return createdDate;
-//    }
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-//    public void setCreatedDate(Date createdDate) {
-//        this.createdDate = createdDate;
-//    }
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
     public Category getCategory() {
         return category;

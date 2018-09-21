@@ -8,7 +8,6 @@ public class PostForm {
     private String description;
     private String content;
     private String imageUrl;
-//    private Date createdDate;
     private MultipartFile image;
 
     private Category category;

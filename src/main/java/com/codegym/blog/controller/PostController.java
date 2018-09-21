@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.UUID;
 
 @Controller
@@ -51,23 +52,26 @@ public class PostController {
             @ModelAttribute("postForm") PostForm postForm
     ) {
         ModelAndView modelAndView = new ModelAndView("/blog/post/create");
+        String randomCode = UUID.randomUUID().toString();
+        String originFileName = postForm.getImage().getOriginalFilename();
+        String randomName = randomCode + StorageUnits.getFileExtension(originFileName);
         try {
-            String randomCode = UUID.randomUUID().toString();
-            String originFileName = postForm.getImage().getOriginalFilename();
-            String randomName = randomCode + StorageUnits.getFileExtension(originFileName);
             postForm.getImage().transferTo(new File(StorageUnits.FEATURE_LOCATION + "/" + randomName));
-
-            Post post = new Post();
-            post.setTitle(postForm.getTitle());
-            post.setCategory(postForm.getCategory());
-            post.setContent(postForm.getContent());
-            post.setDescription(postForm.getDescription());
-            post.setImageUrl(randomName);
-
-            postService.save(post);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Post post = new Post();
+        Date now = new Date();
+        post.setTitle(postForm.getTitle());
+        post.setCategory(postForm.getCategory());
+        post.setContent(postForm.getContent());
+        post.setDescription(postForm.getDescription());
+        post.setImageUrl(randomName);
+        post.setCreatedDate(now);
+
+        postService.save(post);
+
         modelAndView.addObject("postForm", new PostForm());
         modelAndView.addObject("message", "New post has been created successfully");
         return modelAndView;
