@@ -17,4 +17,10 @@ public class GeneralController {
         ModelAndView modelAndView = new ModelAndView("/blog/post/error-404");
         return modelAndView;
     }
+
+    @GetMapping("/login")
+    public ModelAndView login() {
+        ModelAndView modelAndView = new ModelAndView("/login");
+        return modelAndView;
+    }
 }
