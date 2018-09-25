@@ -60,7 +60,7 @@
                     <td>Name</td>
                     <td>
                         <select name="category">
-                            <option th:each="c : ${category}"
+                            <option th:each="c : ${categories}"
                                     th:value="${c.id}"
                                     th:text="${c.name}"
                                     th:selected="(${c.id} == *{category.id})">
