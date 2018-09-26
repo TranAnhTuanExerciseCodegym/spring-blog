@@ -10,7 +10,9 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String title;
+    @Lob
     private String description;
+    @Lob
     private String content;
     private String imageUrl;
     private Date createdDate;
