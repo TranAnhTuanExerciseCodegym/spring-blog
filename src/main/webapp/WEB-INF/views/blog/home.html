@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -11,13 +12,65 @@
     <link rel="stylesheet" href="../../../stisla/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../../stisla/sweetalert/dist/sweetalert.css">
     <link rel="stylesheet" href="../../../stisla/css/stisla.css">
+    <link rel="stylesheet" href="/assets/login/Login_v18/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script>
+        $(function(){
+            $.fn.limit = function($n){
+                this.each(function(){
+                    var allText   = $(this).html();
+                    var tLength   = $(this).html().length;
+                    var startText = allText.slice(0,$n);
+                    if(tLength >= $n){
+                        $(this).html(startText+'...');
+                    }else {
+                        $(this).html(startText);
+                    };
+                });
+
+                return this;
+            }
+            $('.card-body p').limit(120);
+        });
+    </script>
+    <style>
+        .social-icon {
+            position: relative;
+            padding: 0;
+            margin: 0;
+        }
+
+        .social-icon li {
+            display: inline-block;
+            list-style: none;
+        }
+
+        .social-icon li a {
+            border-radius: 100px;
+            color: #d9d9d9;
+            font-size: 15px;
+            text-decoration: none;
+            position: relative;
+            margin: 5px 10px;
+        }
+
+        .social-icon li a:hover {
+            color: #ce3232;
+        }
+        .card-title p {
+            width: 590px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
 </head>
 
 <body>
 <nav class="navbar navbar-expand-lg main-navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-            <img src="../../../stisla/img/logo-light.jpg" alt="Logo">
+    <div class="container">
+        <a class="navbar-brand" href="/">
+            Blog
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -28,26 +81,31 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <div class="mr-auto"></div>
             <ul class="navbar-nav">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link smooth-link" href="#hero">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link smooth-link" href="#features">Stisla's Features</a>
+                <li th:each="category : ${categories}"
+                    th:classappend="${#httpServletRequest.getRequestURI() == '/categories/' + category.id ? 'active':''}"
+                >
+                    <a href="#" th:text="${category.name}"></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link smooth-link" href="#blog">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link smooth-link" href="#project">Project</a>
-                </li>
+                <!--<li class="nav-item">-->
+                <!--<a class="nav-link smooth-link" href="#blog">Blog</a>-->
+                <!--</li>-->
+                <!--<li class="nav-item">-->
+                <!--<a class="nav-link smooth-link" href="#project">Project</a>-->
+                <!--</li>-->
             </ul>
             <form class="form-inline">
-                <a href="#contact" class="btn smooth-link align-middle btn-primary">Need Help?</a>
+                <a href="/login" class="btn smooth-link align-middle btn-primary">Login</a>
+            </form>
+            <form class="form-inline" sec:authorize="isAuthenticated()">
+                <a href="/logout" class="btn smooth-link align-middle btn-primary">Logout (<span sec:authentication="principal.username"/>)</a>
             </form>
         </div>
     </div>
 </nav>
-<section class="hero bg-overlay" id="hero" data-bg="/stisla/img/hero.jpeg">
+<section class="hero bg-overlay" id="hero" data-bg="/stisla/img/home-bg.jpg">
     <div class="text">
         <p class="lead">Tuấn</p>
         <h1><span class="bold">Blog</span></span>.</h1>
@@ -65,21 +123,25 @@
                 <th:block th:each="p : ${posts}">
                     <div class="col-12 col-md-6 col-lg-4">
                         <article class="card">
-                            <img class="card-img-top" th:src="@{/upload/__${p.imageUrl}__}" alt="Article Image">
+                            <a th:href="@{/view-post/__${p.id}__}" style="height: 280px">
+                                <img class="card-img-top" th:src="@{/upload/__${p.imageUrl}__}" alt="Article Image">
+                            </a>
                             <div class="card-body">
                                 <div class="card-subtitle mb-2 text-muted">by <a href="#">John Doe</a> on
                                     <span th:text="${p.createdDate}"></span>
                                 </div>
-                                <h4 class="card-title"><a href="#" data-toggle="read" data-id="1"
+                                <h4 class="card-title"><a th:href="@{/view-post/__${p.id}__}"
                                                           th:text="${p.title}"></a></h4>
                                 <p class="card-text" th:text="${p.description}"></p>
                                 <div class="text-right">
-                                    <a href="#" class="card-more" data-toggle="read" data-id="1">Read More <i
+                                    <a th:href="@{/view-post/__${p.id}__}" class="card-more" data-toggle="read"
+                                       data-id="1">Read More <i
                                             class="ion-ios-arrow-right"></i></a>
                                 </div>
                             </div>
                         </article>
                     </div>
+                    <p></p>
                 </th:block>
             </div>
         </div>
@@ -99,89 +161,70 @@
     </div>
 </section>
 
-<section class="bg-overlay padding" id="project" data-bg="img/projects.jpeg"
-         style="background-image: url(&quot;img/projects.jpeg&quot;); background-position: center center; background-attachment: fixed;">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-12 col-md-6">
-                <figure class="projects-picture">
-                    <img src="../../../stisla/img/youzhang.png" alt="Youzhang">
-                </figure>
-            </div>
-            <div class="col-12 col-md-6">
-                <div class="projects-details">
-                    <div class="projects-badge">
-                        Featured
-                    </div>
-                    <h2 class="projects-title">Youzhang - Ionic 3 Catalogue Template</h2>
-                    <p class="projects-description">
-                        Youzhang is an iconic template catalog 3. This ionic template uses version 3 and uses the latest
-                        feature of ionic v3 that is Lazy Loading. With Ionic version 3 and Lazy Loading you don’t have
-                        to define all the components in the app.module.ts file and your hybrid app will get more native
-                        and it will make the app performance better.
-                    </p>
-                    <div class="projects-cta">
-                        <a href="https://codecanyon.net/item/youzhang-ionic-3-catalogue-template/20466954?ref=frameborder"
-                           class="btn btn-primary" target="_blank">
-                            Buy Now
-                        </a>
-                        <a href="https://codecanyon.net/user/frameborder?ref=frameborder" class="btn btn-link"
-                           target="_blank">
-                            More Products
-                        </a>
-                    </div>
-                </div>
+<section class="bg-overlay padding" id="project">
+    <div id="fh5co-clients">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate bounceIn animated">
+                    <img src="/stisla/img/client_1.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template"
+                         class="img-responsive"></div>
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate bounceIn animated">
+                    <img src="/stisla/img/client_3.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template"
+                         class="img-responsive"></div>
+                <div class="visible-sm-block visible-xs-block clearfix"></div>
+                <div class="col-md-3 col-sm-6 col-xs-6 col-xxs-12 fh5co-client-logo text-center to-animate bounceIn animated">
+                    <img src="/stisla/img/client_4.png" alt="FREEHTML5.co Free HTML5 Bootstrap Template"
+                         class="img-responsive"></div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="padding bg-grey" id="contact">
-    <div class="container">
-        <h2 class="section-title text-center">Contact Us</h2>
-        <p class="section-lead text-center text-muted">Send us your inquiry, we will help you and reply as soon as
-            possible</p>
-        <div class="section-body">
-            <div class="row col-spacing">
-                <div class="col-12 col-md-5">
-                    <p class="contact-text">You can send us something like a question or project, we are open 09:00 to
-                        17:00.</p>
-                    <ul class="contact-icon">
-                        <li><i class="ion ion-ios-telephone"></i>
-                            <div>+6212345123</div>
-                        </li>
-                        <li><i class="ion ion-ios-email"></i>
-                            <div>hi@kodinger.com</div>
-                        </li>
-                    </ul>
-                    <iframe src="https://snazzymaps.com/embed/10159" style="border:none;" class="maps"></iframe>
-                </div>
-                <div class="col-12 col-md-7">
-                    <form class="contact row" id="contact-form">
-                        <div class="form-group col-6">
-                            <input type="text" class="form-control" placeholder="Name" name="name" required="">
-                        </div>
-                        <div class="form-group col-6">
-                            <input type="email" class="form-control" placeholder="Email" name="email" required="">
-                        </div>
-                        <div class="form-group col-12">
-                            <input type="text" class="form-control" placeholder="Subject" name="subject" required="">
-                        </div>
-                        <div class="form-group col-12">
-                            <textarea class="form-control" placeholder="Message" name="message" required=""></textarea>
-                        </div>
-                        <div class="form-group col-12 mt-2">
-                            <button class="btn btn-primary">
-                                Send Message
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!--<section class="padding bg-grey" id="contact">-->
+    <!--<div class="container">-->
+        <!--<h2 class="section-title text-center">Contact Us</h2>-->
+        <!--<p class="section-lead text-center text-muted">Send us your inquiry, we will help you and reply as soon as-->
+            <!--possible</p>-->
+        <!--<div class="section-body">-->
+            <!--<div class="row col-spacing">-->
+                <!--<div class="col-12 col-md-5">-->
+                    <!--<p class="contact-text">You can send us something like a question or project, we are open 09:00 to-->
+                        <!--17:00.</p>-->
+                    <!--<ul class="contact-icon">-->
+                        <!--<li><i class="ion ion-ios-telephone"></i>-->
+                            <!--<div>+6212345123</div>-->
+                        <!--</li>-->
+                        <!--<li><i class="ion ion-ios-email"></i>-->
+                            <!--<div>hi@kodinger.com</div>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                    <!--<iframe src="https://snazzymaps.com/embed/10159" style="border:none;" class="maps"></iframe>-->
+                <!--</div>-->
+                <!--<div class="col-12 col-md-7">-->
+                    <!--<form class="contact row" id="contact-form">-->
+                        <!--<div class="form-group col-6">-->
+                            <!--<input type="text" class="form-control" placeholder="Name" name="name" required="">-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-6">-->
+                            <!--<input type="email" class="form-control" placeholder="Email" name="email" required="">-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-12">-->
+                            <!--<input type="text" class="form-control" placeholder="Subject" name="subject" required="">-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-12">-->
+                            <!--<textarea class="form-control" placeholder="Message" name="message" required=""></textarea>-->
+                        <!--</div>-->
+                        <!--<div class="form-group col-12 mt-2">-->
+                            <!--<button class="btn btn-primary">-->
+                                <!--Send Message-->
+                            <!--</button>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</section>-->
 
 <section class="callout">
     <div class="container">
@@ -200,15 +243,21 @@
 
 <footer>
     <div class="container">
-        <figure>
-            <img src="../../../stisla/img/logo-light.png" alt="Logo">
-        </figure>
-        <p>
-            Copyright &copy; 2017 Your Company
-        </p>
-        <p>
-            Made with <i class="ion-heart"></i> By Kodinger
-        </p>
+        <div class="footer-bottom">
+            <ul class="social-icon">
+                <li><a href="https://www.facebook.com/trananh.tuan.5661" class="fa fa-facebook-square"
+                       attr="facebook icon"></a></li>
+                <li><a href="https://twitter.com" class="fa fa-twitter"></a></li>
+                <li><a href="https://www.instagram.com/anh_tuan.95" class="fa fa-instagram"></a></li>
+            </ul>
+        </div>
+    </div>
+    <p>
+        TranAnhTuan &copy; 2019. All rights reserved.
+    </p>
+    <p>
+        Made with <i class="ion-heart"></i> By Tuan
+    </p>
     </div>
 </footer>
 
