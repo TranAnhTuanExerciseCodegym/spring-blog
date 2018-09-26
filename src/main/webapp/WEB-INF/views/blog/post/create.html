@@ -38,19 +38,19 @@
             </p>
             <table class="table">
                 <tr>
-                    <td>title</td>
+                    <td>Title</td>
                     <td><input type="text" th:field="*{title}" class="form-control"></td>
                 </tr>
                 <tr>
                     <td>description</td>
-                    <td><input type="text" th:field="*{description}" class="form-control"></td>
+                    <td><textarea type="text" th:field="*{description}" class="form-control"></textarea></td>
                 </tr>
                 <tr>
-                    <td>image url</td>
+                    <td>Image</td>
                     <td><input type="file" th:field="*{image}"></td>
                 </tr>
                 <tr>
-                    <td>Category</td>
+                    <td>Select category</td>
                     <td>
                         <select th:field="*{category}">
                             <option th:each="c : ${categories}" th:value="${c.id}"
@@ -59,8 +59,8 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>content</td>
-                    <td><input type="text" th:field="*{content}" class="form-control"></td>
+                    <td>Content</td>
+                    <td><textarea th:field="*{content}" class="form-control"></textarea></td>
                 </tr>
                 <tr>
                     <td colspan="2"><input type="submit" class="btn-primary" value="Create category"></td>

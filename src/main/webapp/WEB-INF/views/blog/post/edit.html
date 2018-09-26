@@ -44,10 +44,7 @@
                     <td>Description</td>
                     <td><input class="form-control" type="text" th:field="*{description}"></td>
                 </tr>
-                <tr>
-                    <td>Content</td>
-                    <td><input class="form-control" type="text" th:field="*{content}"></td>
-                </tr>
+
                 <tr>
                     <td>Image Url</td>
                     <td>
@@ -67,6 +64,10 @@
                             </option>
                         </select>
                     </td>
+                </tr>
+                <tr>
+                    <td>Content</td>
+                    <td><textarea class="form-control" type="text" th:field="*{content}"></textarea></td>
                 </tr>
                 <tr>
                     <td><input type="submit" value="Edit Post"></td>
