@@ -15,17 +15,18 @@
     <link rel="stylesheet" href="/assets/login/Login_v18/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script>
-        $(function(){
-            $.fn.limit = function($n){
-                this.each(function(){
-                    var allText   = $(this).html();
-                    var tLength   = $(this).html().length;
-                    var startText = allText.slice(0,$n);
-                    if(tLength >= $n){
-                        $(this).html(startText+'...');
-                    }else {
+        $(function () {
+            $.fn.limit = function ($n) {
+                this.each(function () {
+                    var allText = $(this).html();
+                    var tLength = $(this).html().length;
+                    var startText = allText.slice(0, $n);
+                    if (tLength >= $n) {
+                        $(this).html(startText + '...');
+                    } else {
                         $(this).html(startText);
-                    };
+                    }
+                    ;
                 });
 
                 return this;
@@ -57,6 +58,7 @@
         .social-icon li a:hover {
             color: #ce3232;
         }
+
         .card-title p {
             width: 590px;
             white-space: nowrap;
@@ -86,21 +88,16 @@
                 </li>
                 <li th:each="category : ${categories}"
                     th:classappend="${#httpServletRequest.getRequestURI() == '/categories/' + category.id ? 'active':''}"
-                >
-                    <a href="#" th:text="${category.name}"></a>
+                    class="nav-item">
+                    <a href="#" class="nav-link smooth-link" th:text="${category.name}"></a>
                 </li>
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link smooth-link" href="#blog">Blog</a>-->
-                <!--</li>-->
-                <!--<li class="nav-item">-->
-                <!--<a class="nav-link smooth-link" href="#project">Project</a>-->
-                <!--</li>-->
             </ul>
             <form class="form-inline">
                 <a href="/login" class="btn smooth-link align-middle btn-primary">Login</a>
             </form>
             <form class="form-inline" sec:authorize="isAuthenticated()">
-                <a href="/logout" class="btn smooth-link align-middle btn-primary">Logout (<span sec:authentication="principal.username"/>)</a>
+                <a href="/logout" class="btn smooth-link align-middle btn-primary">Logout (<span
+                        sec:authentication="principal.username"/>)</a>
             </form>
         </div>
     </div>
@@ -134,8 +131,7 @@
                                                           th:text="${p.title}"></a></h4>
                                 <p class="card-text" th:text="${p.description}"></p>
                                 <div class="text-right">
-                                    <a th:href="@{/view-post/__${p.id}__}" class="card-more" data-toggle="read"
-                                       data-id="1">Read More <i
+                                    <a th:href="@{/view-post/__${p.id}__}" class="card-more">Read More <i
                                             class="ion-ios-arrow-right"></i></a>
                                 </div>
                             </div>
@@ -181,49 +177,49 @@
 </section>
 
 <!--<section class="padding bg-grey" id="contact">-->
-    <!--<div class="container">-->
-        <!--<h2 class="section-title text-center">Contact Us</h2>-->
-        <!--<p class="section-lead text-center text-muted">Send us your inquiry, we will help you and reply as soon as-->
-            <!--possible</p>-->
-        <!--<div class="section-body">-->
-            <!--<div class="row col-spacing">-->
-                <!--<div class="col-12 col-md-5">-->
-                    <!--<p class="contact-text">You can send us something like a question or project, we are open 09:00 to-->
-                        <!--17:00.</p>-->
-                    <!--<ul class="contact-icon">-->
-                        <!--<li><i class="ion ion-ios-telephone"></i>-->
-                            <!--<div>+6212345123</div>-->
-                        <!--</li>-->
-                        <!--<li><i class="ion ion-ios-email"></i>-->
-                            <!--<div>hi@kodinger.com</div>-->
-                        <!--</li>-->
-                    <!--</ul>-->
-                    <!--<iframe src="https://snazzymaps.com/embed/10159" style="border:none;" class="maps"></iframe>-->
-                <!--</div>-->
-                <!--<div class="col-12 col-md-7">-->
-                    <!--<form class="contact row" id="contact-form">-->
-                        <!--<div class="form-group col-6">-->
-                            <!--<input type="text" class="form-control" placeholder="Name" name="name" required="">-->
-                        <!--</div>-->
-                        <!--<div class="form-group col-6">-->
-                            <!--<input type="email" class="form-control" placeholder="Email" name="email" required="">-->
-                        <!--</div>-->
-                        <!--<div class="form-group col-12">-->
-                            <!--<input type="text" class="form-control" placeholder="Subject" name="subject" required="">-->
-                        <!--</div>-->
-                        <!--<div class="form-group col-12">-->
-                            <!--<textarea class="form-control" placeholder="Message" name="message" required=""></textarea>-->
-                        <!--</div>-->
-                        <!--<div class="form-group col-12 mt-2">-->
-                            <!--<button class="btn btn-primary">-->
-                                <!--Send Message-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                <!--</div>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
+<!--<div class="container">-->
+<!--<h2 class="section-title text-center">Contact Us</h2>-->
+<!--<p class="section-lead text-center text-muted">Send us your inquiry, we will help you and reply as soon as-->
+<!--possible</p>-->
+<!--<div class="section-body">-->
+<!--<div class="row col-spacing">-->
+<!--<div class="col-12 col-md-5">-->
+<!--<p class="contact-text">You can send us something like a question or project, we are open 09:00 to-->
+<!--17:00.</p>-->
+<!--<ul class="contact-icon">-->
+<!--<li><i class="ion ion-ios-telephone"></i>-->
+<!--<div>+6212345123</div>-->
+<!--</li>-->
+<!--<li><i class="ion ion-ios-email"></i>-->
+<!--<div>hi@kodinger.com</div>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<iframe src="https://snazzymaps.com/embed/10159" style="border:none;" class="maps"></iframe>-->
+<!--</div>-->
+<!--<div class="col-12 col-md-7">-->
+<!--<form class="contact row" id="contact-form">-->
+<!--<div class="form-group col-6">-->
+<!--<input type="text" class="form-control" placeholder="Name" name="name" required="">-->
+<!--</div>-->
+<!--<div class="form-group col-6">-->
+<!--<input type="email" class="form-control" placeholder="Email" name="email" required="">-->
+<!--</div>-->
+<!--<div class="form-group col-12">-->
+<!--<input type="text" class="form-control" placeholder="Subject" name="subject" required="">-->
+<!--</div>-->
+<!--<div class="form-group col-12">-->
+<!--<textarea class="form-control" placeholder="Message" name="message" required=""></textarea>-->
+<!--</div>-->
+<!--<div class="form-group col-12 mt-2">-->
+<!--<button class="btn btn-primary">-->
+<!--Send Message-->
+<!--</button>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
 <!--</section>-->
 
 <section class="callout">
