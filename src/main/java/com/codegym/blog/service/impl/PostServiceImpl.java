@@ -4,14 +4,16 @@ import com.codegym.blog.model.Post;
 import com.codegym.blog.repository.PostRepository;
 import com.codegym.blog.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class PostServiceImpl implements PostService {
     @Autowired
     private PostRepository postRepository;
 
     @Override
-    public Iterable<Post> findByAll() {
-        return postRepository.findAll();
+    public Page<Post> findByAll(Pageable pageable) {
+        return postRepository.findAll(pageable);
     }
 
     @Override

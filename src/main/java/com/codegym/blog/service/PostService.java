@@ -1,9 +1,11 @@
 package com.codegym.blog.service;
 
 import com.codegym.blog.model.Post;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface PostService {
-    Iterable<Post> findByAll();
+    Page<Post> findByAll(Pageable pageable);
 
     Post findById(Long id);
 

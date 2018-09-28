@@ -8,6 +8,8 @@ import com.codegym.blog.service.CategoryService;
 import com.codegym.blog.service.PostService;
 import com.codegym.util.StorageUnits;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,8 +35,10 @@ public class PostController {
 
 
     @GetMapping("")
-    public ModelAndView list() {
-        Iterable<Post> posts = postService.findByAll();
+    public ModelAndView list(
+            Pageable pageable
+    ) {
+        Page<Post> posts = postService.findByAll(pageable);
         ModelAndView modelAndView = new ModelAndView("/blog/post/list");
         modelAndView.addObject("posts", posts);
         return modelAndView;
