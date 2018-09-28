@@ -124,7 +124,7 @@
                                 <img class="card-img-top" th:src="@{/upload/__${p.imageUrl}__}" alt="Article Image">
                             </a>
                             <div class="card-body">
-                                <div class="card-subtitle mb-2 text-muted">by <a href="#">John Doe</a> on
+                                <div class="card-subtitle mb-2 text-muted">by <a href="#">Tuấn</a> on
                                     <span th:text="${p.createdDate}"></span>
                                 </div>
                                 <h4 class="card-title"><a th:href="@{/view-post/__${p.id}__}"
@@ -141,6 +141,22 @@
                 </th:block>
             </div>
         </div>
+
+
+        <div class="list-pager" th:markdown>
+            <ul>
+
+                <li><span class="current">1</span></li>
+                <li><a class="normal" href="/nha-sach-tiki/c8322?src=mega-menu&amp;order=top_seller&amp;page=2">2</a>
+                </li><li><a class="normal" href="/nha-sach-tiki/c8322?src=mega-menu&amp;order=top_seller&amp;page=3">3</a>
+            </li><li><a class="normal" href="/nha-sach-tiki/c8322?src=mega-menu&amp;order=top_seller&amp;page=4">4</a>
+            </li><li><a class="normal" href="/nha-sach-tiki/c8322?src=mega-menu&amp;order=top_seller&amp;page=5">5</a>
+
+            </li><li><a rel="next" class="next" href="/nha-sach-tiki/c8322?src=mega-menu&amp;order=top_seller&amp;page=2"><i class="ico ico-arrow-next"></i></a></li>
+            </ul>
+        </div>
+
+
 
         <div class="row align-items-center mt-5">
             <div class="col-12 col-md-6">
