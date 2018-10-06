@@ -8,7 +8,7 @@
 <body>
 <a href="/category">List Category</a>
 <h1>Edit Category</h1>
-<form th:action="@{/edit-category}" method="post" th:object="${category}">
+<form th:action="@{/admin/categories/edit}" method="post" th:object="${category}">
     <input type="hidden" th:field="*{id}">
     <table>
         <tr>

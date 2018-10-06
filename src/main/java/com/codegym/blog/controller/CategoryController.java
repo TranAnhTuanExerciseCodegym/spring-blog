@@ -10,11 +10,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
+@RequestMapping("/admin/categories")
 public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/category")
+    @GetMapping("")
     public ModelAndView showCategoryForm() {
         Iterable<Category> categories = categoryService.findByAll();
         ModelAndView modelAndView = new ModelAndView("/blog/category/list");
@@ -22,14 +23,14 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/category-create")
+    @GetMapping("/create")
     public ModelAndView showCategoryCreateForm() {
         ModelAndView modelAndView = new ModelAndView("/blog/category/create");
         modelAndView.addObject("category", new Category());
         return modelAndView;
     }
 
-    @PostMapping("/category-create")
+    @PostMapping("/create")
     public ModelAndView saveCategory(
             @ModelAttribute("category") Category category
     ) {
@@ -39,7 +40,7 @@ public class CategoryController {
         return modelAndView;
     }
 
-    @GetMapping("/edit-category/{id}")
+    @GetMapping("/edit/{id}")
     public ModelAndView showEditCategoryForm(
             @PathVariable("id") Long id
     ) {
@@ -54,7 +55,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("/edit-category")
+    @PostMapping("/edit")
     public String updateCategory(
             @ModelAttribute("category") Category category,
             RedirectAttributes redirectAttributes
@@ -64,7 +65,7 @@ public class CategoryController {
         return "redirect:/category";
     }
 
-    @GetMapping("/delete-category/{id}")
+    @GetMapping("/delete/{id}")
     public ModelAndView deleteCategory(
             @PathVariable("id") Long id
     ) {
@@ -79,7 +80,7 @@ public class CategoryController {
         }
     }
 
-    @PostMapping("delete-category")
+    @PostMapping("delete")
     public String removeCategory(
             @ModelAttribute("category") Category category,
             RedirectAttributes redirectAttributes
