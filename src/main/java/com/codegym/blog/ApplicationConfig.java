@@ -219,7 +219,7 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
         resolver.setOneIndexedParameters(true);
-        resolver.setFallbackPageable(new PageRequest(0, 6));
+        resolver.setFallbackPageable(new PageRequest(0, 2));
         argumentResolvers.add(resolver);
         super.addArgumentResolvers(argumentResolvers);
     }
