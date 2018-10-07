@@ -472,7 +472,8 @@ article.card .card-title a:hover {
 
 article.card .card-text {
 	color: #666;
-	line-height: 26px;
+	/*line-height: 26px;*/
+	height: 80px;
 }
 
 article.card .card-subtitle {
