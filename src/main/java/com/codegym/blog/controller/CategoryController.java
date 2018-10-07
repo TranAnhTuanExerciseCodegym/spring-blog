@@ -37,6 +37,7 @@ public class CategoryController {
         categoryService.save(category);
         ModelAndView modelAndView = new ModelAndView("/blog/category/create");
         modelAndView.addObject("category", new Category());
+        modelAndView.addObject("message", "New category has been created successfully");
         return modelAndView;
     }
 
@@ -50,19 +51,19 @@ public class CategoryController {
             modelAndView.addObject("category", category);
             return modelAndView;
         } else {
-            ModelAndView modelAndView = new ModelAndView("/blog/category/error-404");
+            ModelAndView modelAndView = new ModelAndView("/blog/404");
             return modelAndView;
         }
     }
 
-    @PostMapping("/edit")
-    public String updateCategory(
-            @ModelAttribute("category") Category category,
-            RedirectAttributes redirectAttributes
+    @PostMapping("/edit/{id}")
+    public ModelAndView updateCategory(
+            @ModelAttribute("category") Category category
     ) {
         categoryService.save(category);
-        redirectAttributes.addFlashAttribute("message", "edit category successfully");
-        return "redirect:/category";
+        ModelAndView modelAndView = new ModelAndView("/blog/category/edit");
+        modelAndView.addObject("message", "Edit category successfully");
+        return modelAndView;
     }
 
     @GetMapping("/delete/{id}")
@@ -70,23 +71,23 @@ public class CategoryController {
             @PathVariable("id") Long id
     ) {
         Category category = categoryService.findById(id);
+        ModelAndView modelAndView;
         if (category != null) {
-            ModelAndView modelAndView = new ModelAndView("/blog/category/delete");
+           modelAndView = new ModelAndView("/blog/category/delete");
             modelAndView.addObject("category", category);
-            return modelAndView;
         } else {
-            ModelAndView modelAndView = new ModelAndView("/blog/category/error-404");
-            return modelAndView;
+           modelAndView = new ModelAndView("/blog/404");
         }
+        return modelAndView;
     }
 
-    @PostMapping("delete")
+    @PostMapping("delete/{id}")
     public String removeCategory(
             @ModelAttribute("category") Category category,
             RedirectAttributes redirectAttributes
     ) {
         categoryService.remove(category.getId());
-        redirectAttributes.addFlashAttribute("message", "delete category successfully");
-        return "redirect:/category";
+        redirectAttributes.addFlashAttribute("message", "Delete category successfully");
+        return "redirect:/admin/categories";
     }
 }
