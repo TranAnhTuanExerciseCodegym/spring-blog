@@ -34,7 +34,8 @@
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search By Title" aria-label="Search">
+            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search By Title"
+                   aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
         <ul class="navbar-nav">
@@ -44,6 +45,19 @@
         </ul>
     </div>
 </nav>
+<div class="container">
+    <div class="sortBy">
+        <select onchange="location.href=this.value">
+            <option>Sort by</option>
+            <option value="http://localhost:8080/admin/products?sort=Title">Title: A to Z</option>
+            <option value="http://localhost:8080/admin/products?sort=Title,desc">Title: Z to A</option>
+            <option value="http://localhost:8080/admin/products?sort=createdDate">Date: Low to Hight</option>
+            <option value="http://localhost:8080/admin/products?sort=createdDate,desc">Date: Hight to Low</option>
+            <option value="http://localhost:8080/admin/products?sort=Category">Category: Low to Hight</option>
+            <option value="http://localhost:8080/admin/products?sort=Category,desc">Category: Hight to Low</option>
+        </select>
+    </div>
+</div>
 <div class="container">
     <div class="menu">
         <p>
