@@ -167,8 +167,8 @@
 
         <div class="pagination">
             <a th:href="@{/(page=${posts.number - 0})}" th:if="${posts.hasPrevious()}" class="page">Previous</a>
+            <a href="?page=1" class="page">1</a>
             <a href="?page=2" class="page">2</a>
-            <!--<a href="?page=3">3</a>-->
             <a th:href="@{/(page=${posts.number + 2})}" th:if="${posts.hasNext()}" class="page">Next</a>
         </div>
 
