@@ -36,19 +36,4 @@ public class WebController {
         modelAndView.addObject("posts", posts);
         return modelAndView;
     }
-
-    @GetMapping("view-post/{id}")
-    public ModelAndView view(
-            @PathVariable("id") Long id
-    ) {
-        Post post = postService.findById(id);
-        ModelAndView modelAndView;
-        if (post != null) {
-            modelAndView = new ModelAndView("/view");
-            modelAndView.addObject("post", post);
-        } else {
-            modelAndView = new ModelAndView("redirect:/admin");
-        }
-        return modelAndView;
-    }
 }
