@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class CategorySiteController {
     @Autowired
@@ -28,7 +27,6 @@ public class CategorySiteController {
         return categoryService.findByAll();
     }
 
-
     @GetMapping("categories/{id}")
     public ModelAndView viewPostCategory(
             @PathVariable("id") Long id,
@@ -37,7 +35,7 @@ public class CategorySiteController {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
         if (category == null) {
-            modelAndView = new ModelAndView("/blog/error");
+            modelAndView = new ModelAndView("/blog/404");
         } else {
             Page<Post> posts = postService.findByCategory(category, pageable);
             modelAndView = new ModelAndView("/blog/category/view");

@@ -23,7 +23,7 @@ public class PostSiteController {
             modelAndView = new ModelAndView("/view");
             modelAndView.addObject("post", post);
         } else {
-            modelAndView = new ModelAndView("redirect:/admin");
+            modelAndView = new ModelAndView("/blog/404");
         }
         return modelAndView;
     }

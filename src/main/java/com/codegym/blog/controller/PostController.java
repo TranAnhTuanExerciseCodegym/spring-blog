@@ -107,7 +107,7 @@ public class PostController {
             modelAndView = new ModelAndView("/blog/post/edit");
             modelAndView.addObject("postForm", postForm);
         } else {
-            modelAndView = new ModelAndView("redirect:/404");
+            modelAndView = new ModelAndView("/blog/404");
         }
         return modelAndView;
     }
