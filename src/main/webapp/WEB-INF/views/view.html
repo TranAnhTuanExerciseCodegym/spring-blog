@@ -57,7 +57,11 @@
                 <li><a href="https://www.facebook.com/trananh.tuan.5661"><i class="fa fa-facebook-square"></i></a></li>
                 <li><a href="https://twitter.com"><i class="fa fa-twitter"></i></a></li>
                 <li><a href="https://www.instagram.com/anh_tuan.95"><i class="fa fa-instagram"></i></a></li>
-                <li class="section-btn"><a href="/" data-toggle="modal" data-target="#modal-form">Tuấn</a>
+                <li>
+                    <form class="section-btn" sec:authorize="isAuthenticated()">
+                        <a href="/logout">Logout (<span
+                                sec:authentication="principal.username"/>)</a>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -130,7 +134,8 @@
                             <p>Call us <span>(+66) 010-020-0340</span></p>
                         </div>
                         <ul class="social-icon">
-                            <li><a href="https://www.facebook.com/trananh.tuan.5661" class="fa fa-facebook-square" attr="facebook icon"></a></li>
+                            <li><a href="https://www.facebook.com/trananh.tuan.5661" class="fa fa-facebook-square"
+                                   attr="facebook icon"></a></li>
                             <li><a href="https://twitter.com" class="fa fa-twitter"></a></li>
                             <li><a href="https://www.instagram.com/anh_tuan.95" class="fa fa-instagram"></a></li>
                         </ul>

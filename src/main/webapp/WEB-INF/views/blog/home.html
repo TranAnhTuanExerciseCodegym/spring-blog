@@ -114,9 +114,6 @@
                     <a th:href="@{/categories/__${c.id}__}" class="nav-link smooth-link" th:text="${c.name}"></a>
                 </li>
             </ul>
-            <form class="form-inline">
-                <a href="/login" class="btn smooth-link align-middle btn-primary">Login</a>
-            </form>
             <form class="form-inline" sec:authorize="isAuthenticated()">
                 <a href="/logout" class="btn smooth-link align-middle btn-primary">Logout (<span
                         sec:authentication="principal.username"/>)</a>
