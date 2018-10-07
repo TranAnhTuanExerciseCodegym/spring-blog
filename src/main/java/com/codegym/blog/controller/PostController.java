@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -36,9 +37,15 @@ public class PostController {
 
     @GetMapping("")
     public ModelAndView list(
+            @RequestParam("search")Optional<String>search,
             Pageable pageable
     ) {
-        Page<Post> posts = postService.findByAll(pageable);
+        Page<Post> posts;
+        if (search.isPresent()) {
+            posts = postService.findAllByTitleContaining(search.get(), pageable);
+        } else {
+            posts = postService.findByAll(pageable);
+        }
         ModelAndView modelAndView = new ModelAndView("/blog/post/list");
         modelAndView.addObject("posts", posts);
         return modelAndView;

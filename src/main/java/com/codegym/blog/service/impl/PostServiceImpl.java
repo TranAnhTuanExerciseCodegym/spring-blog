@@ -36,4 +36,9 @@ public class PostServiceImpl implements PostService {
     public Page<Post> findByCategory(Category category, Pageable pageable) {
         return postRepository.findByCategory(category, pageable);
     }
+
+    @Override
+    public Page<Post> findAllByTitleContaining(String title, Pageable pageable) {
+        return postRepository.findAllByTitleContaining(title, pageable);
+    }
 }

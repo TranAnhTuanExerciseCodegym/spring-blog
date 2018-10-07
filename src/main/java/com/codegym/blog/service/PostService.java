@@ -15,4 +15,6 @@ public interface PostService {
     void remove(Long id);
 
     Page<Post> findByCategory(Category category, Pageable pageable);
+
+    Page<Post> findAllByTitleContaining(String title, Pageable pageable);
 }
