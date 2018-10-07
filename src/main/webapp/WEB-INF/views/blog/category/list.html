@@ -1,39 +1,105 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
->
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <style type="text/css">
+        .menu {
+            padding-top: 10px;
+        }
+    </style>
     <meta charset="UTF-8">
     <title>List Category</title>
-    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/assets/view-detail/css/magnific-popup.css">
+    <link rel="stylesheet" href="/assets/view-detail/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/view-detail/css/templatemo-style.css">
 </head>
 <body>
-<section layout:fragment="content">
-    <div class="container">
-        <nav class="navbar navbar-dark bg-dark">
-            <h1>List Category</h1>
-        </nav>
-        <a href="/admin/categories/create">Create category</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/categories/">List Category<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/posts/">List Post<span class="sr-only"></span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="/admin/categories/create">Create category <span class="sr-only"></span></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <ul class="navbar-nav">
+            <li class="nav-item" sec:authorize="isAuthenticated()">
+                <a class="nav-link" href="/logout">Logout (<span sec:authentication="principal.username"/>)</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <div class="menu">
+        <p>
+            <th:block th:if="${message}">
+                <span th:text="${message}"></span>
+            </th:block>
+        </p>
         <table class="table">
             <thead>
-            <tr>
-                <td>#</td>
-                <td>Name</td>
-                <td>Edit</td>
-                <td>Delete</td>
-            </tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Edit</th>
+            <th>Delete</th>
             </thead>
-
-            <tr th:each="category : ${categories}">
-                <td th:text="${category.id}"></td>
-                <td th:text="${category.name}"></td>
-                <td><a th:href="@{/admin/categories/edit/__${category.id}__}">Edit</a></td>
-                <td><a th:href="@{/admin/categories/delete/__${category.id}__}">Delete</a></td>
-            </tr>
+            <tbody>
+            <th:block th:each="category, inter : ${categories}">
+                <tr>
+                    <td th:text="${inter.count}"></td>
+                    <td>
+                        <a th:href="@{/categories/__${category.id}__}" th:text="${category.name}"></a>
+                    </td>
+                    <td><a th:href="@{/admin/categories/edit/__${category.id}__}">Edit</a></td>
+                    <td><a th:href="@{/admin/categories/delete/__${category.id}__}">Delete</a></td>
+                </tr>
+            </th:block>
+            </tbody>
         </table>
     </div>
-</section>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</div>
+<div></div>
+<footer data-stellar-background-ratio="0.5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <div class="footer-bottom">
+                    <div class="col-md-6 col-sm-5">
+                        <div class="copyright-text">
+                            <p>TranAnhTuan &copy; 2019. All rights reserved.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-7">
+                        <div class="phone-contact">
+                            <p>Call us <span>(+66) 010-020-0340</span></p>
+                        </div>
+                        <ul class="social-icon">
+                            <li><a href="https://www.facebook.com/trananh.tuan.5661" class="fa fa-facebook-square"
+                                   attr="facebook icon"></a></li>
+                            <li><a href="https://twitter.com" class="fa fa-twitter"></a></li>
+                            <li><a href="https://www.instagram.com/anh_tuan.95" class="fa fa-instagram"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</footer>
 </body>
 </html>
