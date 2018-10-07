@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
+
 
 @Controller
 @RequestMapping("/admin/categories")
@@ -16,8 +18,15 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("")
-    public ModelAndView showCategoryForm() {
-        Iterable<Category> categories = categoryService.findByAll();
+    public ModelAndView showCategoryForm(
+            @RequestParam("search") Optional<String> search
+    ) {
+        Iterable<Category> categories;
+        if (search.isPresent()) {
+            categories = categoryService.findAllByNameContaining(search.get());
+        } else {
+            categories = categoryService.findByAll();
+        }
         ModelAndView modelAndView = new ModelAndView("/blog/category/list");
         modelAndView.addObject("categories", categories);
         return modelAndView;
@@ -73,10 +82,10 @@ public class CategoryController {
         Category category = categoryService.findById(id);
         ModelAndView modelAndView;
         if (category != null) {
-           modelAndView = new ModelAndView("/blog/category/delete");
+            modelAndView = new ModelAndView("/blog/category/delete");
             modelAndView.addObject("category", category);
         } else {
-           modelAndView = new ModelAndView("/blog/404");
+            modelAndView = new ModelAndView("/blog/404");
         }
         return modelAndView;
     }
