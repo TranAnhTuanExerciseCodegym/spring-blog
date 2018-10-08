@@ -4,23 +4,23 @@
 
 #  Main Features
 ## Admin
-Login
-Create post
-Update post
-Delete post
-Create category
-Update category
-Delete category
-View category and post in category
+* Login
+* Create post
+* Update post
+* Delete post
+* Create category
+* Update category
+* Delete category
+* View category and post in category
 ## Site
-View list post
-View list post in category
-View single post
+* View list post
+* View list post in category
+* View single post
 # Main technologies
-Java
-Spring MVC
-ORM
-Bootstrap
+* Java
+* Spring MVC
+* ORM
+* Bootstrap
 
 # Screenshot
 
