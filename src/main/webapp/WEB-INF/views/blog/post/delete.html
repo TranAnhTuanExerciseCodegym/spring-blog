@@ -5,6 +5,27 @@
     <meta charset="UTF-8">
     <title>Delete Post</title>
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css"/>
+    <script>
+        $(function () {
+            $.fn.limit = function ($n) {
+                this.each(function () {
+                    var allText = $(this).html();
+                    var tLength = $(this).html().length;
+                    var startText = allText.slice(0, $n);
+                    if (tLength >= $n) {
+                        $(this).html(startText + '...');
+                    } else {
+                        $(this).html(startText);
+                    }
+                    ;
+                });
+
+                return this;
+            }
+            $('.menu form').limit(120);
+
+        });
+    </script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -43,13 +64,13 @@
             <div class="form-group row">
                 <label class="col-md-2">Title</label>
                 <div class="col-md-10">
-                    <strong th:text="${post.title}"></strong>
+                    <span th:text="${post.title}"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2">Description</label>
                 <div class="col-md-10">
-                    <strong th:text="${post.description}"></strong>
+                    <span th:text="${post.description}"></span>
                 </div>
             </div>
             <div class="form-group row">
@@ -61,13 +82,13 @@
             <div class="form-group row">
                 <label class="col-md-2">Category</label>
                 <div class="col-md-10">
-                    <strong th:text="${post.category.name}"></strong>
+                    <span th:text="${post.category.name}"></span>
                 </div>
             </div>
             <div class="form-group row">
                 <label class="col-md-2">Content</label>
                 <div class="col-md-10">
-                    <strong th:text="${post.content}"></strong>
+                    <span th:text="${post.content}"></span>
                 </div>
             </div>
             <tr>
